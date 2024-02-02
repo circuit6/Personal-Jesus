@@ -43,7 +43,7 @@ def parse_chat_data_from_file(file_path):
                 })
     return messages
 
-def format_messages_for_model(df, batch_size=65):
+def format_messages_for_model(df, batch_size):
     # List to hold the formatted strings for each batch
     batched_messages = []
     
@@ -70,17 +70,18 @@ def format_messages_for_model(df, batch_size=65):
     
     return batched_messages
 
-def process_messages_and_save_findings(df):
+def process_messages_and_save_findings(df, batch_size):
     col_findings = []
     
     # Use the updated format_messages_for_model function
-    batched_messages = format_messages_for_model(df, 65)
+    batched_messages = format_messages_for_model(df, batch_size=batch_size)
     
     total_batches = len(batched_messages)
     start_time = time.time()  # Start timing
     
     for i, batch_str in enumerate(batched_messages, 1):
         # Call the hypothetical function and collect its response
+        print("len of batch ", len(batch_str))
         response = jesus_reads_your_message(batch_str)
         col_findings.append(response)
         
@@ -108,6 +109,10 @@ messages = parse_chat_data_from_file(file_path)
 
 # Convert the list of dictionaries into a pandas DataFrame
 df = pd.DataFrame(messages)
+try:
+    findings_path = process_messages_and_save_findings(df, 75)
+except Exception as e:
+    print("error: ", e)
+    pass
 
-findings_path = process_messages_and_save_findings(df)
 print(f"Findings have been saved to: {findings_path}")
