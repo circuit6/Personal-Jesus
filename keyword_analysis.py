@@ -118,14 +118,13 @@ def display_matching_sections(keyword):
             li.append(section_text)
     return li
 # Replace 'keyword' with the actual keyword you're searching for
-key_word = "ai "
+key_word = "GPT"
 summaries = display_matching_sections(key_word)
-summarize(summaries, key_word, 25)
-print(summaries)
+#summarize(summaries, key_word, 25)
 
-
+'''
 sections = process_text_file(file_path)  # Assuming this function is already defined as provided
 most_common_nouns, common_bigrams = analyze_text(sections)
-
 print("Most Common Nouns:", most_common_nouns)
-#print("Common Bigrams of Nouns:", common_bigrams)
+print("Common Bigrams of Nouns:", common_bigrams)
+'''

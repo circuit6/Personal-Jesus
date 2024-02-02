@@ -109,10 +109,52 @@ messages = parse_chat_data_from_file(file_path)
 
 # Convert the list of dictionaries into a pandas DataFrame
 df = pd.DataFrame(messages)
+
+# Calculate word count for each message
+df['word_count'] = df['message'].apply(lambda x: len(x.split()))
+
+# Calculate character count for each message (excluding spaces)
+df['character_count'] = df['message'].apply(lambda x: len(x.replace(" ", "")))
+
+# Summarize word count by author
+word_count_by_author = df.groupby('author')['word_count'].sum().reset_index()
+word_count_by_author = word_count_by_author.rename(columns={'word_count': 'total_word_count'})
+
+# Summarize character count by author
+character_count_by_author = df.groupby('author')['character_count'].sum().reset_index()
+character_count_by_author = character_count_by_author.rename(columns={'character_count': 'total_character_count'})
+
+# Display the summaries
+print("Word Count by Author:")
+print(word_count_by_author)
+
+print("\nCharacter Count by Author:")
+print(character_count_by_author)
+
+# Calculate word count for each message
+df['word_count'] = df['message'].apply(lambda x: len(x.split()))
+
+# Calculate character count for each message (including spaces)
+df['character_count'] = df['message'].apply(lambda x: len(x))
+
+# Calculate average word count by author
+avg_word_count_by_author = df.groupby('author')['word_count'].mean().reset_index()
+avg_word_count_by_author = avg_word_count_by_author.rename(columns={'word_count': 'average_word_count'})
+
+# Calculate average character count by author
+avg_character_count_by_author = df.groupby('author')['character_count'].mean().reset_index()
+avg_character_count_by_author = avg_character_count_by_author.rename(columns={'character_count': 'average_character_count'})
+
+# Display the averages
+print("Average Word Count by Author:")
+print(avg_word_count_by_author)
+
+print("\nAverage Character Count by Author:")
+print(avg_character_count_by_author)
+
 try:
     findings_path = process_messages_and_save_findings(df, 75)
 except Exception as e:
     print("error: ", e)
     pass
-
-print(f"Findings have been saved to: {findings_path}")
+#print(f"Findings have been saved to: {findings_path}")
