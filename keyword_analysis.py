@@ -127,16 +127,17 @@ def display_matching_sections(keyword):
     return li
 
 # Replace 'keyword' with the actual keyword you're searching for
-#key_word = "video"
-#summaries = display_matching_sections(key_word)
-
+key_word = "game"
+summaries = display_matching_sections(key_word)
 sections = process_text_file(file_path)  # Assuming this function is already defined as provided
 most_common_nouns, common_bigrams = analyze_text(sections)
-#print("Most Common Nouns:", most_common_nouns)
+print("Most Common Nouns:", most_common_nouns)
 #most_common_nouns = most_common_nouns.pop(0)
 
 #### New section to generate ideas based on the most common nouns ####
 
+######PERSONAL JESUS EXECUTION########
+'''
 def display_matching_sections_gpt(keyword):
     li = []
     matching_sections = find_sections_with_keyword(sections, keyword)
@@ -264,3 +265,4 @@ messages=[
 response = chat_completion_request(messages)
 
 print("final Jesus response:    ", response)
+'''
